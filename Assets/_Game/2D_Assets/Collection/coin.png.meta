@@ -369,13 +369,13 @@ TextureImporter:
       name: coin_3
       rect:
         serializedVersion: 2
-        x: 248
+        x: 261
         y: 383
-        width: 50
-        height: 97
+        width: 37
+        height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 34}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -392,11 +392,11 @@ TextureImporter:
         serializedVersion: 2
         x: 336
         y: 383
-        width: 44
-        height: 97
+        width: 24
+        height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 20, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -497,7 +497,7 @@ TextureImporter:
         serializedVersion: 2
         x: 663
         y: 383
-        width: 105
+        width: 62
         height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1041,13 +1041,13 @@ TextureImporter:
       name: coin_35
       rect:
         serializedVersion: 2
-        x: 402
-        y: 175
-        width: 30
-        height: 68
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+        x: 404
+        y: 176
+        width: 25
+        height: 63
+      alignment: 9
+      pivot: {x: 0.6520703, y: 0.4827588}
+      border: {x: 1, y: 0, z: 1, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1106,11 +1106,11 @@ TextureImporter:
         serializedVersion: 2
         x: 596
         y: 176
-        width: 129
+        width: 56
         height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 56, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1273,12 +1273,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 528
-        y: 37
-        width: 67
-        height: 130
+        y: 107
+        width: 54
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 60, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1520,6 +1520,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: coin_58
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 176
+        width: 63
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a712ae3e2405e9844b8b40c1e15f1f22
+      internalID: -724110294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin_59
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 37
+        width: 53
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aebb59ce78564e4aa164ed0624efcad
+      internalID: -1222552862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1535,6 +1577,7 @@ TextureImporter:
       coin_22: 21300044
       coin_3: 21300006
       coin_21: 21300042
+      coin_58: -724110294
       coin_42: 21300084
       coin_39: 21300078
       coin_10: 21300020
@@ -1548,6 +1591,7 @@ TextureImporter:
       coin_47: 21300094
       coin_41: 21300082
       coin_56: 21300112
+      coin_59: -1222552862
       coin_53: 21300106
       coin_1: 21300002
       coin_23: 21300046

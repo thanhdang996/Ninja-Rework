@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     private bool isAttack;
     private bool isDead;
 
+
+    private int coin;
+
     private void Update()
     {
         // neu dead hoac dang attack thi ko update van toc va rotate player
@@ -131,5 +134,24 @@ public class Player : MonoBehaviour
             currentAnimName = animName;
             anim.SetTrigger(animName);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            coin++;
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("DeadZone"))
+        {
+            Dead();
+        }
+    }
+
+    private void Dead()
+    {
+        ChangeAnim("die");
+        isDead = true;
     }
 }
