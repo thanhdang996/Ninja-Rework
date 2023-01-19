@@ -20,8 +20,23 @@ public class Player : MonoBehaviour
     private bool isAttack;
     private bool isDead;
 
-
     private int coin;
+    private Vector3 savePoint;
+
+
+    private void Start()
+    {
+        SavePoint();
+        OnInit();
+    }
+
+    private void OnInit()
+    {
+        transform.position = savePoint;
+        isDead = false;
+        isAttack = false;
+        ChangeAnim("idle");
+    }
 
     private void Update()
     {
@@ -93,6 +108,7 @@ public class Player : MonoBehaviour
 
     private bool IsGround()
     {
+        if (isJumping) return false;
         Debug.DrawLine(transform.position, transform.position + (distanceToGround * Vector3.down), Color.red);
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distanceToGround, groundLayer);
         return hit.collider != null;
@@ -126,6 +142,13 @@ public class Player : MonoBehaviour
         isAttack = false;
     }
 
+    private void Dead()
+    {
+        ChangeAnim("die");
+        isDead = true;
+        Invoke(nameof(OnInit), 1f);
+    }
+
     private void ChangeAnim(string animName)
     {
         if (currentAnimName != animName)
@@ -134,6 +157,11 @@ public class Player : MonoBehaviour
             currentAnimName = animName;
             anim.SetTrigger(animName);
         }
+    }
+
+    private void SavePoint()
+    {
+        savePoint = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -147,11 +175,9 @@ public class Player : MonoBehaviour
         {
             Dead();
         }
-    }
-
-    private void Dead()
-    {
-        ChangeAnim("die");
-        isDead = true;
+        else if (other.CompareTag("SavePoint"))
+        {
+            SavePoint();
+        }
     }
 }
