@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Animator anim;
-    [SerializeField] private string currentAnimName;
+
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
@@ -21,21 +20,27 @@ public class Player : MonoBehaviour
     private bool isDead;
 
     private int coin;
-    private Vector3 savePoint;
+    private Vector3 savePoint = new Vector3(-4.5f, -1.5f, 0);
 
 
-    private void Start()
+
+    protected override void OnInit()
     {
-        SavePoint();
-        OnInit();
-    }
-
-    private void OnInit()
-    {
+        base.OnInit();
         transform.position = savePoint;
         isDead = false;
         isAttack = false;
         ChangeAnim("idle");
+    }
+
+    protected override void OnDespawn()
+    {
+        base.OnDespawn();
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
     }
 
     private void Update()
@@ -53,6 +58,7 @@ public class Player : MonoBehaviour
         isGround = IsGround();
         if (isGround)
         {
+
             if (isJumping) return;  //them dieu o day, vi co nhung frame no van chay dieu kien phia duoi if (horizontal != 0) hoac else 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -76,6 +82,7 @@ public class Player : MonoBehaviour
 
             if (horizontal != 0)
             {
+                rb.velocity = new Vector2(rb.velocity.x, 0); // ngan velocity Y khi dang run bi so am rat nho
                 ChangeAnim("run");
             }
             else
@@ -149,15 +156,7 @@ public class Player : MonoBehaviour
         Invoke(nameof(OnInit), 1f);
     }
 
-    private void ChangeAnim(string animName)
-    {
-        if (currentAnimName != animName)
-        {
-            anim.ResetTrigger(animName);
-            currentAnimName = animName;
-            anim.SetTrigger(animName);
-        }
-    }
+
 
     private void SavePoint()
     {
