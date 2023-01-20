@@ -30,12 +30,15 @@ public class Enemy : Character
 
     protected override void OnDespawn()
     {
-        base.OnDespawn();
+        Destroy(gameObject);
     }
 
     protected override void OnDeath()
     {
         base.OnDeath();
+
+        rb.velocity = Vector2.zero;
+        ChangeState(null);
     }
 
 

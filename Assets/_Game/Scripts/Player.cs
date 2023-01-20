@@ -6,7 +6,8 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField] private Rigidbody2D rb;
-
+    [SerializeField] private Kunai kunaiPrefab;
+    [SerializeField] private Transform throwPoint;
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
@@ -63,19 +64,19 @@ public class Player : Character
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Jump();
-                Debug.LogError("jump");
+                // Debug.LogError("jump");
                 return;
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
                 Attack();
-                Debug.LogError("attack");
+                // Debug.LogError("attack");
                 return;
             }
             else if (Input.GetKeyDown(KeyCode.V))
             {
                 Throw();
-                Debug.LogError("throw");
+                // Debug.LogError("throw");
                 return;
             }
 
@@ -142,6 +143,8 @@ public class Player : Character
         ChangeAnim("throw");
         isAttack = true;
         Invoke(nameof(ResetAttack), 0.5f);
+
+        Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
     }
 
     private void ResetAttack()
