@@ -8,6 +8,7 @@ TagManager:
   - DeadZone
   - SavePoint
   - EnemyWall
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -15,15 +15,30 @@ public class PatrolState : IState
     public void OnExecute(Enemy enemy)
     {
         timer += Time.deltaTime;
-        if (timer < randomTime)
+        if (enemy.Target != null)
         {
-            // phai de moving o On Execute vi khi changeDirection se update Moving
-            // (vi khi changedirection se change rotate va velocity co transform.right nen thay doi velocity)
-            enemy.Moving();
+            enemy.ChangeDirection(enemy.Target.transform.position.x > enemy.transform.position.x);
+            if (enemy.IsTargetInRange())
+            {
+                enemy.ChangeState(new AttackState());
+            }
+            else
+            {
+                enemy.Moving();
+            }
         }
         else
         {
-            enemy.ChangeState(new IdleState());
+            if (timer < randomTime)
+            {
+                // phai de moving o On Execute vi khi changeDirection se update Moving
+                // (vi khi changedirection se change rotate va velocity co transform.right nen thay doi velocity)
+                enemy.Moving();
+            }
+            else
+            {
+                enemy.ChangeState(new IdleState());
+            }
         }
     }
 

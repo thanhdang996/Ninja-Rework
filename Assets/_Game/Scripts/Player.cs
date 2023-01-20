@@ -20,14 +20,14 @@ public class Player : Character
     private bool isDead;
 
     private int coin;
-    private Vector3 savePoint = new Vector3(-4.5f, -1.5f, 0);
+    [SerializeField] private Transform savePoint;
 
 
 
     protected override void OnInit()
     {
         base.OnInit();
-        transform.position = savePoint;
+        transform.position = savePoint.position;
         isDead = false;
         isAttack = false;
         ChangeAnim("idle");
@@ -160,7 +160,7 @@ public class Player : Character
 
     private void SavePoint()
     {
-        savePoint = transform.position;
+        savePoint.position = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

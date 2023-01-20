@@ -5,10 +5,13 @@ using UnityEngine;
 public class Enemy : Character
 {
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float attackRange = 2f;
     [SerializeField] private float moveSpeed = 4f;
     private IState currentState;
     private bool isRight = true;
+
+    private Character target;
+    public Character Target => target;
 
     private void Update()
     {
@@ -51,6 +54,23 @@ public class Enemy : Character
         }
     }
 
+    public void SetTarget(Character target)
+    {
+        this.target = target;
+        if (IsTargetInRange())
+        {
+            ChangeState(new AttackState());
+        }
+        else if (target != null)
+        {
+            ChangeState(new PatrolState());
+        }
+        else
+        {
+            ChangeState(new IdleState());
+        }
+    }
+
     public void Moving()
     {
         ChangeAnim("run");
@@ -65,25 +85,33 @@ public class Enemy : Character
 
     public void Attack()
     {
-
+        ChangeAnim("attack");
     }
 
     public bool IsTargetInRange()
     {
-        return false;
+        if (target != null && Vector2.Distance(target.transform.position, transform.position) < attackRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("EnemyWall"))
         {
-            ChangeDirection();
+            ChangeDirection(!isRight);
         }
     }
 
-    private void ChangeDirection()
+    public void ChangeDirection(bool isRight)
     {
-        isRight = !isRight;
+        this.isRight = isRight;
         transform.rotation = Quaternion.Euler(0, isRight ? 0 : 180, 0);
+        // Moving();
     }
 }

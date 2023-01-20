@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private string currentAnimName;
+    private string currentAnimName;
     protected float hp;
     public bool IsDead => hp <= 0;
 
