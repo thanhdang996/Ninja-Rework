@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 6163952260984802480}
   speed: 6
+  hitVFX: {fileID: 3446541871685325760, guid: 053e3186477c4534aaa40b9f5850fc07, type: 3}
 --- !u!50 &6163952260984802480
 Rigidbody2D:
   serializedVersion: 4

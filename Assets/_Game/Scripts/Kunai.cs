@@ -6,6 +6,8 @@ public class Kunai : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 6f;
+    [SerializeField] private GameObject hitVFX;
+
 
     private void Start()
     {
@@ -28,6 +30,7 @@ public class Kunai : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Character>().OnHit(30f);
+            Instantiate(hitVFX, transform.position, transform.rotation);
             OnDespawn();
         }
     }

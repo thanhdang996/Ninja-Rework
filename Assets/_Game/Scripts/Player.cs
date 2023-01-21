@@ -46,6 +46,7 @@ public class Player : Character
     {
         base.OnDeath();
         isDead = true;
+        rb.velocity = Vector2.zero;
     }
 
     private void Update()
