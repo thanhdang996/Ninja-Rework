@@ -11,6 +11,9 @@ public class Enemy : Character
     private IState currentState;
     private bool isRight = true;
 
+    // nen de la Character vi ko phai tham chieu toi player trong truong hop muon tao prefab cho enemy
+    // neu tao prefab thi cac thuoc tinh ko dc tham chieu toi cac object khac, chi tham chieu trong cung 1 gameoject thoi
+    // vi khi de thanh prefab no se missing cac tham chieu ben ngoai
     private Character target;
     public Character Target => target;
 
