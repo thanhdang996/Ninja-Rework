@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [SerializeField] protected HealthBar healthBar;
     [SerializeField] private Animator anim;
     private string currentAnimName;
     protected float hp;
@@ -18,6 +19,7 @@ public class Character : MonoBehaviour
     protected virtual void OnInit()
     {
         hp = 100;
+        healthBar.OnInit(hp);
     }
 
     protected virtual void OnDespawn()
@@ -47,8 +49,11 @@ public class Character : MonoBehaviour
             hp -= damage;
             if (IsDead)
             {
+                hp = 0;
                 OnDeath();
             }
         }
+
+        healthBar.SetHp(hp);
     }
 }

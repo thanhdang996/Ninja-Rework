@@ -36,6 +36,7 @@ public class Enemy : Character
     protected override void OnDespawn()
     {
         Destroy(gameObject);
+        Destroy(healthBar.gameObject);
     }
 
     protected override void OnDeath()
