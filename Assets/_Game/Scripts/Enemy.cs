@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : Character
 {
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private GameObject attackArea;
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float moveSpeed = 4f;
     private IState currentState;
@@ -24,6 +25,7 @@ public class Enemy : Character
     protected override void OnInit()
     {
         base.OnInit();
+        DeActiveAttack();
         ChangeState(new IdleState());
 
     }
@@ -89,7 +91,20 @@ public class Enemy : Character
     public void Attack()
     {
         ChangeAnim("attack");
+        ActiveAttack();
+        Invoke(nameof(DeActiveAttack), 0.5f);
     }
+
+    private void ActiveAttack()
+    {
+        attackArea.SetActive(true);
+    }
+
+    private void DeActiveAttack()
+    {
+        attackArea.SetActive(false);
+    }
+
 
     public bool IsTargetInRange()
     {

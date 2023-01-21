@@ -8,6 +8,7 @@ public class Player : Character
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Kunai kunaiPrefab;
     [SerializeField] private Transform throwPoint;
+    [SerializeField] private GameObject attackArea;
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
@@ -32,16 +33,19 @@ public class Player : Character
         isDead = false;
         isAttack = false;
         ChangeAnim("idle");
+
+        DeActiveAttack();
     }
 
     protected override void OnDespawn()
     {
-        base.OnDespawn();
+        OnInit();
     }
 
     protected override void OnDeath()
     {
         base.OnDeath();
+        isDead = true;
     }
 
     private void Update()
@@ -67,13 +71,13 @@ public class Player : Character
                 // Debug.LogError("jump");
                 return;
             }
-            else if (Input.GetKeyDown(KeyCode.C))
+            else if (Input.GetKeyDown(KeyCode.C) && !isAttack)
             {
                 Attack();
                 // Debug.LogError("attack");
                 return;
             }
-            else if (Input.GetKeyDown(KeyCode.V))
+            else if (Input.GetKeyDown(KeyCode.V) && !isAttack)
             {
                 Throw();
                 // Debug.LogError("throw");
@@ -88,6 +92,10 @@ public class Player : Character
             }
             else
             {
+                // để dòng này để velocity luôn khác 0, để rigidbody ko rơi vào trang thái sleep ( khi velocity = 0) thì sẽ ko  chạy hàm Ontrigger đc 
+                // rb.velocity = new Vector2(rb.velocity.x, -1);
+                // hoặc có thể thay đổi sleeping mode trong rigidbody là never sleep, thì khi velocity = 0 , rigid vẫn ở state Awake và chạy dc hàm trigger
+
                 ChangeAnim("idle");
                 // print("idle");
             }
@@ -134,6 +142,8 @@ public class Player : Character
     {
         ChangeAnim("attack");
         isAttack = true;
+        ActiveAttack();
+        Invoke(nameof(DeActiveAttack), 0.5f);
         Invoke(nameof(ResetAttack), 0.5f);
     }
 
@@ -145,6 +155,16 @@ public class Player : Character
         Invoke(nameof(ResetAttack), 0.5f);
 
         Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
+    }
+
+    private void ActiveAttack()
+    {
+        attackArea.SetActive(true);
+    }
+
+    private void DeActiveAttack()
+    {
+        attackArea.SetActive(false);
     }
 
     private void ResetAttack()
