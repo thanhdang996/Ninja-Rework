@@ -8,8 +8,11 @@ public class AttackArea : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
-            print("Hit" + other.name);
-            other.GetComponent<Character>().OnHit(40f);
+            if (other.GetComponent<Character>().enabled)
+            {
+                print("Hit" + other.name);
+                other.GetComponent<Character>().OnHit(40f);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] protected HealthBar healthBar;
     [SerializeField] private Animator anim;
+    [SerializeField] private CombatText combatTextPrefab;
     private string currentAnimName;
     protected float hp;
     public bool IsDead => hp <= 0;
@@ -20,6 +21,7 @@ public class Character : MonoBehaviour
     {
         hp = 100;
         healthBar.OnInit(hp);
+        enabled = true;
     }
 
     protected virtual void OnDespawn()
@@ -30,6 +32,7 @@ public class Character : MonoBehaviour
     protected virtual void OnDeath()
     {
         ChangeAnim("die");
+        enabled = false;
         Invoke(nameof(OnDespawn), 2f);
     }
     protected void ChangeAnim(string animName)
@@ -53,7 +56,7 @@ public class Character : MonoBehaviour
                 OnDeath();
             }
         }
-
+        Instantiate(combatTextPrefab, transform.position + Vector3.up, Quaternion.identity).OnInit(damage);
         healthBar.SetHp(hp);
     }
 }

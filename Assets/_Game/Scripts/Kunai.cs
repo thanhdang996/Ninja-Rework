@@ -27,7 +27,7 @@ public class Kunai : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && other.GetComponent<Enemy>().enabled)
         {
             other.GetComponent<Character>().OnHit(30f);
             Instantiate(hitVFX, transform.position, transform.rotation);
