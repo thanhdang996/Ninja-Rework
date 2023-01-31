@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : Character
 {
+    [SerializeField] private Collider2D _collider;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Kunai kunaiPrefab;
     [SerializeField] private Transform throwPoint;
@@ -62,9 +63,9 @@ public class Player : Character
         HandleMovingAndRotate();
 
         isGround = IsGround();
+
         if (isGround)
         {
-
             if (isJumping) return;  //them dieu o day, vi co nhung frame no van chay dieu kien phia duoi if (horizontal != 0) hoac else 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -123,12 +124,18 @@ public class Player : Character
         // print("move");
     }
 
+
+
     private bool IsGround()
     {
+        // if (isJumping) return false;
+        // Debug.DrawLine(transform.position, transform.position + (distanceToGround * Vector3.down), Color.red);
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distanceToGround, groundLayer);
+        // return hit.collider != null;
+        // de 0.99 cho do bi trung vao capsule collider
         if (isJumping) return false;
-        Debug.DrawLine(transform.position, transform.position + (distanceToGround * Vector3.down), Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, distanceToGround, groundLayer);
-        return hit.collider != null;
+        RaycastHit2D hit2 = Physics2D.BoxCast(_collider.bounds.center, Vector2.one * 0.99f, 0, Vector2.down, _collider.bounds.extents.y - 0.48f, groundLayer);
+        return hit2.collider != null;
     }
 
     private void Jump()
