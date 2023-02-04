@@ -32,7 +32,6 @@ public class Player : Character
     protected override void OnInit()
     {
         base.OnInit();
-        coin = 0;
         transform.position = savePoint.position;
         isDead = false;
         isAttack = false;
@@ -237,6 +236,12 @@ public class Player : Character
         {
             SavePoint();
         }
+        else if (other.CompareTag("BoosterSpeed"))
+        {
+            Destroy(other.gameObject);
+            speed = 10f;
+            StartCoroutine(ResetSpeed());
+        }
     }
 
     private IEnumerator HealHpPerSecond()
@@ -250,5 +255,11 @@ public class Player : Character
             }
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    private IEnumerator ResetSpeed()
+    {
+        yield return new WaitForSeconds(10f);
+        speed = 5f;
     }
 }
