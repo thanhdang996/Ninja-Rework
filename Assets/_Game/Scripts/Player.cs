@@ -24,17 +24,20 @@ public class Player : Character
 
     private int coin;
     [SerializeField] private Transform savePoint;
+    [SerializeField] private Transform hidePointMap;
 
 
 
     protected override void OnInit()
     {
         base.OnInit();
+        coin = 0;
         transform.position = savePoint.position;
         isDead = false;
         isAttack = false;
         ChangeAnim("idle");
-
+        StopAllCoroutines();
+        StartCoroutine(HealHpPerSecond());
         DeActiveAttack();
     }
 
@@ -199,6 +202,10 @@ public class Player : Character
         if (other.CompareTag("Coin"))
         {
             coin++;
+            if (coin == 7)
+            {
+                transform.position = hidePointMap.position;
+            }
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("DeadZone"))
@@ -208,6 +215,19 @@ public class Player : Character
         else if (other.CompareTag("SavePoint"))
         {
             SavePoint();
+        }
+    }
+
+    private IEnumerator HealHpPerSecond()
+    {
+        while (!IsDead)
+        {
+            if (hp < 100)
+            {
+                hp += 3f;
+                healthBar.SetHp(hp);
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 }
