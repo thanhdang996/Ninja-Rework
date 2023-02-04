@@ -13,7 +13,7 @@ public class Player : Character
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float distanceToGround = 1.01f;
+    // [SerializeField] private float distanceToGround = 1.01f;
     [SerializeField] private LayerMask groundLayer;
     private float horizontal;
 
