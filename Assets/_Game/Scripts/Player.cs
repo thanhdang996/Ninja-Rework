@@ -25,6 +25,7 @@ public class Player : Character
     private int coin;
     [SerializeField] private Transform savePoint;
     [SerializeField] private Transform hidePointMap;
+    [SerializeField] private int numberThrow;
 
 
 
@@ -70,6 +71,8 @@ public class Player : Character
         if (isGround)
         {
             if (isJumping) return;  //them dieu o day, vi co nhung frame no van chay dieu kien phia duoi if (horizontal != 0) hoac else 
+
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Jump();
@@ -82,9 +85,17 @@ public class Player : Character
                 // Debug.LogError("attack");
                 return;
             }
+            else if (Input.GetKeyDown(KeyCode.V) && !isAttack && numberThrow == 3)
+            {
+                numberThrow = 0;
+                ThrowSpecial();
+                // Debug.LogError("throw");
+                return;
+            }
             else if (Input.GetKeyDown(KeyCode.V) && !isAttack)
             {
-                Throw();
+                numberThrow++;
+                ThrowNormal();
                 // Debug.LogError("throw");
                 return;
             }
@@ -159,13 +170,23 @@ public class Player : Character
     }
 
 
-    private void Throw()
+    private void ThrowNormal()
     {
         ChangeAnim("throw");
         isAttack = true;
         Invoke(nameof(ResetAttack), 0.5f);
 
         Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
+    }
+    private void ThrowSpecial()
+    {
+        ChangeAnim("throw");
+        isAttack = true;
+        Invoke(nameof(ResetAttack), 0.5f);
+
+        Instantiate(kunaiPrefab, throwPoint.position + Vector3.up * 0.5f, throwPoint.rotation);
+        Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
+        Instantiate(kunaiPrefab, throwPoint.position + Vector3.down * 0.5f, throwPoint.rotation);
     }
 
     private void ActiveAttack()
