@@ -16,11 +16,13 @@ public class Player : Character
     // [SerializeField] private float distanceToGround = 1.01f;
     [SerializeField] private LayerMask groundLayer;
     private float horizontal;
+    private float dirY;
 
     private bool isGround;
     private bool isJumping;
     private bool isAttack;
     private bool isDead;
+    public bool AllowClimp { get; set; }
 
     private int coin;
     [SerializeField] private Transform savePoint;
@@ -117,14 +119,44 @@ public class Player : Character
         }
         else
         {
-            if (rb.velocity.y < 0)
+            if (AllowClimp)
+            {
+                dirY = Input.GetAxisRaw("Vertical") * speed;
+                if (dirY == 0)
+                {
+                    ChangeAnim("climb_idle");
+                }
+                if (dirY != 0)
+                {
+                    ChangeAnim("climb");
+                }
+            }
+            else if (rb.velocity.y > 0)
+            {
+                ChangeAnim("jump");
+            }
+            else if (rb.velocity.y < 0)
             {
                 isJumping = false;
                 ChangeAnim("fall");
             }
         }
+
+
     }
 
+    private void FixedUpdate()
+    {
+        if (AllowClimp)
+        {
+            rb.isKinematic = true;
+            rb.velocity = new Vector2(rb.velocity.x, dirY);
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
+    }
     private void HandleMovingAndRotate()
     {
         horizontal = Input.GetAxisRaw("Horizontal");

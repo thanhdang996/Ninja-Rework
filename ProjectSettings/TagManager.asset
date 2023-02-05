@@ -10,6 +10,7 @@ TagManager:
   - EnemyWall
   - Enemy
   - BoosterSpeed
+  - Rope
   layers:
   - Default
   - TransparentFX
