@@ -10,6 +10,7 @@ public class Player : Character
     [SerializeField] private Kunai kunaiPrefab;
     [SerializeField] private Transform throwPoint;
     [SerializeField] private GameObject attackArea;
+    public GameObject shield;
 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
@@ -28,6 +29,8 @@ public class Player : Character
     [SerializeField] private Transform savePoint;
     [SerializeField] private Transform hidePointMap;
     [SerializeField] private int numberThrow;
+
+    Coroutine resetSpeed = null;
 
 
 
@@ -272,7 +275,9 @@ public class Player : Character
         {
             Destroy(other.gameObject);
             speed = 10f;
-            StartCoroutine(ResetSpeed());
+            if (resetSpeed != null)
+                StopCoroutine(resetSpeed);
+            resetSpeed = StartCoroutine(ResetSpeed());
         }
     }
 

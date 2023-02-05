@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - BoosterSpeed
   - Rope
+  - ShieldPlayer
   layers:
   - Default
   - TransparentFX
