@@ -17,10 +17,10 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 pos = transform.position;
             pos.x = Random.Range(-2f, 2f);
-            Instantiate(iceStonePrefab, pos, Quaternion.identity);
+            Instantiate(iceStonePrefab, pos, Quaternion.identity, transform);
             yield return new WaitForSeconds(Random.Range(0.5f, 1f));
             pos.x = Random.Range(-2f, 2f);
-            Instantiate(iceStonePrefab, pos, Quaternion.identity);
+            Instantiate(iceStonePrefab, pos, Quaternion.identity, transform);
             yield return new WaitForSeconds(Random.Range(0.5f, 1f));
         }
     }

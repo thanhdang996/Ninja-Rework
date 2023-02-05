@@ -26,7 +26,7 @@ public class Player : Character
     public bool AllowClimp { get; set; }
 
     private int coin;
-    [SerializeField] private Transform savePoint;
+    private Vector3 savePoint = Vector3.zero;
     [SerializeField] private Transform hidePointMap;
     [SerializeField] private int numberThrow;
 
@@ -36,8 +36,9 @@ public class Player : Character
 
     protected override void OnInit()
     {
+        hp = 100;
         base.OnInit();
-        transform.position = savePoint.position;
+        transform.position = savePoint;
         isDead = false;
         isAttack = false;
         ChangeAnim("idle");
@@ -249,7 +250,7 @@ public class Player : Character
 
     private void SavePoint()
     {
-        savePoint.position = transform.position;
+        savePoint = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
