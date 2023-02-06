@@ -10,6 +10,7 @@ public class Player : Character
     [SerializeField] private Kunai kunaiPrefab;
     [SerializeField] private Transform throwPoint;
     [SerializeField] private GameObject attackArea;
+    [SerializeField] private BoxCollider2D triggerHideMap;
     public GameObject shield;
 
     [SerializeField] private float speed = 5f;
@@ -23,6 +24,7 @@ public class Player : Character
     private bool isJumping;
     private bool isAttack;
     private bool isDead;
+    public bool IsShield { get; set; }
     public bool AllowClimp { get; set; }
 
     private int coin;
@@ -260,7 +262,8 @@ public class Player : Character
             coin++;
             if (coin == 7)
             {
-                transform.position = hidePointMap.position;
+                // transform.position = hidePointMap.position;
+                triggerHideMap.isTrigger = true;
             }
             Destroy(other.gameObject);
         }
@@ -299,5 +302,11 @@ public class Player : Character
     {
         yield return new WaitForSeconds(10f);
         speed = 5f;
+    }
+
+    public override void OnHit(float damage)
+    {
+        if (IsShield) return;
+        base.OnHit(damage);
     }
 }

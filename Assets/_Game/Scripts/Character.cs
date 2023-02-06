@@ -45,7 +45,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void OnHit(float damage)
+    public virtual void OnHit(float damage)
     {
         if (!IsDead)
         {

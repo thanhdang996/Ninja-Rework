@@ -10,7 +10,14 @@ public class TriggerMap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            TriggerHideMap.SetActive(false);
+            if (other.transform.position.x > transform.position.x)
+            {
+                TriggerHideMap.SetActive(false);
+            }
+            else if (other.transform.position.x < transform.position.x)
+            {
+                TriggerHideMap.SetActive(true);
+            }
         }
     }
 }

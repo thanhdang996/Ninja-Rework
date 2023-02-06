@@ -18,10 +18,12 @@ public class Shield : MonoBehaviour
     IEnumerator CoolDownShied(Collider2D other)
     {
         other.GetComponent<Player>().shield.SetActive(true);
-        other.tag = "ShieldPlayer";
+        other.GetComponent<Player>().IsShield = true;
+        // other.tag = "ShieldPlayer";
         yield return new WaitForSeconds(5);
-        other.tag = "Player";
+        // other.tag = "Player";
         other.GetComponent<Player>().shield.SetActive(false);
+        other.GetComponent<Player>().IsShield = false;
         Destroy(gameObject);
     }
 }
