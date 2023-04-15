@@ -10,7 +10,7 @@ public class AttackArea : MonoBehaviour
         {
             if (other.GetComponent<Character>().enabled)
             {
-                print("Hit" + other.name);
+                //print("Hit" + other.name);
                 other.GetComponent<Character>().OnHit(40f);
             }
         }

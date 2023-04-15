@@ -28,7 +28,7 @@ public class IceStone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Character>().OnHit(10f);
+            other.GetComponent<Character>().OnHit(1000f);
             Instantiate(hitVFX, transform.position, transform.rotation);
             OnDespawn();
         }

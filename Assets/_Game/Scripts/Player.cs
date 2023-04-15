@@ -165,7 +165,7 @@ public class Player : Character
     }
     private void HandleMovingAndRotate()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        //horizontal = Input.GetAxisRaw("Horizontal");
 
         if (horizontal != 0)
         {
@@ -189,16 +189,22 @@ public class Player : Character
         return hit2.collider != null;
     }
 
-    private void Jump()
+    public void Jump()
     {
+        if (!enabled) return;
+        if (!isGround) return;
+        if (isAttack) return;
         ChangeAnim("jump");
         isJumping = true;
         rb.AddForce(jumpForce * Vector2.up, ForceMode2D.Impulse);
     }
 
 
-    private void Attack()
+    public void Attack()
     {
+        if (!enabled) return;
+        if (!isGround) return;
+        if (isAttack) return;
         ChangeAnim("attack");
         isAttack = true;
         ActiveAttack();
@@ -207,8 +213,11 @@ public class Player : Character
     }
 
 
-    private void ThrowNormal()
+    public void ThrowNormal()
     {
+        if (!enabled) return;
+        if (!isGround) return;
+        if (isAttack) return;
         ChangeAnim("throw");
         isAttack = true;
         Invoke(nameof(ResetAttack), 0.5f);
@@ -224,6 +233,11 @@ public class Player : Character
         Instantiate(kunaiPrefab, throwPoint.position + Vector3.up * 0.5f, throwPoint.rotation);
         Instantiate(kunaiPrefab, throwPoint.position, throwPoint.rotation);
         Instantiate(kunaiPrefab, throwPoint.position + Vector3.down * 0.5f, throwPoint.rotation);
+    }
+
+    public void SetMove(float horizontal)
+    {
+        this.horizontal = horizontal;
     }
 
     private void ActiveAttack()
