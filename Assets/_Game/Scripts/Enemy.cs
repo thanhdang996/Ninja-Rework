@@ -16,6 +16,7 @@ public class Enemy : Character
     // vi khi de thanh prefab no se missing cac tham chieu ben ngoai
     private Character target;
     public Character Target => target;
+    public bool IsBot;
 
     private void Update()
     {
@@ -45,6 +46,10 @@ public class Enemy : Character
 
         rb.velocity = Vector2.zero;
         ChangeState(null);
+        if(IsBot)
+        {
+            UIManager.Ins.ShowWinGO();
+        }
     }
 
 
