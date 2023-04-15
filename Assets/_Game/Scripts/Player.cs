@@ -127,7 +127,7 @@ public class Player : Character
         {
             if (AllowClimp)
             {
-                dirY = Input.GetAxisRaw("Vertical") * speed;
+                //dirY = Input.GetAxisRaw("Vertical") * speed;
                 if (dirY == 0)
                 {
                     ChangeAnim("climb_idle");
@@ -156,7 +156,7 @@ public class Player : Character
         if (AllowClimp)
         {
             rb.isKinematic = true;
-            rb.velocity = new Vector2(rb.velocity.x, dirY);
+            rb.velocity = new Vector2(rb.velocity.x, dirY * speed);
         }
         else
         {
@@ -239,6 +239,10 @@ public class Player : Character
     {
         this.horizontal = horizontal;
     }
+    public void SetUp(float dirY)
+    {
+        this.dirY = dirY;
+    }
 
     private void ActiveAttack()
     {
@@ -315,6 +319,7 @@ public class Player : Character
     private IEnumerator ResetSpeed()
     {
         yield return new WaitForSeconds(10f);
+        print(2);
         speed = 5f;
     }
 
