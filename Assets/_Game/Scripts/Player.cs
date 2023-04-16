@@ -319,7 +319,6 @@ public class Player : Character
     private IEnumerator ResetSpeed()
     {
         yield return new WaitForSeconds(10f);
-        print(2);
         speed = 5f;
     }
 
